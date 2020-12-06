@@ -23,7 +23,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.odftoolkit</groupId>
     <artifactId>odftoolkit</artifactId>
-    <version>1.0.0-BETA2-SNAPSHOT</version>
+    <version>1.0.0-BETA2-m1</version>
     <packaging>pom</packaging>
 
     <parent>
@@ -165,20 +165,10 @@
     </ciManagement>
 
     <distributionManagement>
-        <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
         <repository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/
-            </url>
+            <id>org.clazzes-util-dist</id>
+            <url>scpexe://util@maven.clazzes.org/var/www/htdocs/maven.clazzes.org</url>
         </repository>
-        <!-- not used for deployment but only for site:stage goal -->
-        <site>
-            <id>odftoolkit.org</id>
-            <url>https://odftoolkit.org/reports/${project.version}/</url>
-        </site>
     </distributionManagement>
 
     <developers>
@@ -236,6 +226,13 @@
 
 
     <build>
+        <extensions>
+            <extension>
+                <groupId>org.apache.maven.wagon</groupId>
+                <artifactId>wagon-ssh-external</artifactId>
+                <version>3.3.2</version>
+            </extension>
+        </extensions>
         <plugins>
             <plugin>
                 <groupId>com.cosium.code</groupId>
@@ -329,17 +326,6 @@
                         <version>1.11.2</version>
                     </dependency>
                 </dependencies>
-            </plugin>
-            <plugin>
-                <groupId>org.sonatype.plugins</groupId>
-                <artifactId>nexus-staging-maven-plugin</artifactId>
-                <version>1.6.8</version>
-                <extensions>true</extensions>
-                <configuration>
-                    <serverId>ossrh</serverId>
-                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
-                </configuration>
             </plugin>
         </plugins>
     </build>
